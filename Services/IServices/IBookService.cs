@@ -1,3 +1,6 @@
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.DTOs;
+
 namespace BookLibraryApi.Services.IService
 {
     public interface IBookService

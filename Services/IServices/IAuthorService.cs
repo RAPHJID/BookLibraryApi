@@ -1,3 +1,6 @@
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.DTOs;
+
 namespace BookLibraryApi.Services.IService
 {
     public interface IAuthorService
@@ -5,7 +8,8 @@ namespace BookLibraryApi.Services.IService
         Task <List<AuthorDto>> GetAllAuthorsAsync();
         Task <AuthorDto> GetAuthorByIdAsync(int authorId);
         Task AddAuthorAsync(CreateUpdatedAuthorDto newAuthor);
-        Task UpdateAuthorAsync (CreateUpdatedAuthorDto updatedAuthor);
+        Task UpdateAuthorAsync (int authorId, CreateUpdatedAuthorDto updatedAuthor);
         Task DeleteAuthorAsync(int authorId);
+
     }
 }

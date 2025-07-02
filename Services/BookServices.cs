@@ -1,4 +1,9 @@
 using AutoMapper;
+using BookLibraryApi.Data;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.DTOs;
+using BookLibraryApi.Services.IService;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace BookLibraryApi.Services

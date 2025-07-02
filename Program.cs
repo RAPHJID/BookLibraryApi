@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using BookLibraryApi;
+using BookLibraryApi.Services;
+using BookLibraryApi.Services.IService;
 using BookLibraryApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +23,7 @@ builder.Services.AddDbContext<LibraryContext>(options =>{
 });
 
 builder.Services.AddScoped<IBookService, BookServices>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 
 var app = builder.Build();
