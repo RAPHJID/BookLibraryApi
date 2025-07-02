@@ -8,7 +8,8 @@ namespace BookLibraryApi
     {
         public MappingProfile()
             {
-                CreateMap<Book, BookDto>();
+                CreateMap<Book, BookDto>()
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => $"{src.Author.FirstName} {src.Author.LastName}"));
                 CreateMap<BookDto, Book>();
                 CreateMap<Author, AuthorDto>()
                 .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));

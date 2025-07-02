@@ -8,7 +8,7 @@ namespace BookLibraryApi.Services
         private readonly LibraryContext _context;
         private readonly IMapper _mapper;
 
-        public BookServices(LibraryContext context, MappingProfile mapper)
+        public BookServices(LibraryContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -53,14 +53,14 @@ namespace BookLibraryApi.Services
 
         public async Task<List<BookDto>> GetBooksByAuthorAsync(int authorId)
         {
-            var books = await _context.Books.Include(b => b.Author).Where(a => a.AuthorId = authorId).ToListAsync();
-            return _mapper.Map<BookDto>(books);
+            var books = await _context.Books.Include(b => b.Author).Where(a => a.AuthorId == authorId).ToListAsync();
+            return _mapper.Map<List<BookDto>>(books);
 
         }
 
         public async Task<List<BookDto>> GetAvailableBooksAsync()
         {
-            var availableBooks = _context.Books.Include(b => b.Author).Where(b => b.IsAvailable).ToListAsync();
+            var availableBooks = await _context.Books.Include(b => b.Author).Where(b => b.IsAvailable).ToListAsync();
             return _mapper.Map<List<BookDto>>(availableBooks);
 
 
