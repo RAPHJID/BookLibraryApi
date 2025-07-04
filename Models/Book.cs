@@ -9,7 +9,7 @@ namespace BookLibraryApi.Models
         [Required(ErrorMessage = "Date of publish required")]
         public DateTime PublishedDate {get;set;}
         [Required(ErrorMessage = "Description required")]
-        [MaxLength(50, ErrorMessage = "Description cannot have more than 0 characters")]
+        [MaxLength(50, ErrorMessage = "Description cannot have more than 50 characters")]
         public string Description {get;set;}
         public bool IsAvailable {get;set;} = true;
 

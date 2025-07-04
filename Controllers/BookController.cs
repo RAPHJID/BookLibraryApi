@@ -15,6 +15,7 @@ public class BookController : ControllerBase
     public BookController(IBookService bookService)
     {
         _bookService = bookService;
+
     }
 
     [HttpGet]
@@ -28,7 +29,13 @@ public class BookController : ControllerBase
     public async Task<IActionResult> GetBookById(int bookId)
     {
         var book = await _bookService.GetBookByIdAsync(bookId);
-        if(book == null) return NotFound($"Book with ID : {bookId} not found!");
+        var _response = new ResponseDto();
+        if(book == null)
+        {
+            _response.Success = false;
+            _response.Message = "Book not found";
+            return NotFound(_response);
+        }
         return Ok(book);
     }
 
@@ -43,7 +50,13 @@ public class BookController : ControllerBase
     public async Task<IActionResult> UpdateBook(int bookId, CreateUpdateBookDto updatedBook)
     {
         var existingBook = await _bookService.GetBookByIdAsync(bookId);
-        if(existingBook == null) return NotFound($"Book with ID : {bookId} not found!");
+        var _response = new ResponseDto();
+        if(existingBook == null)
+        {
+            _response.Success = false;
+            _response.Message = "Book not found";
+            return NotFound(_response);
+        }
         await _bookService.UpdateBookAsync(bookId, updatedBook);
         return Ok(updatedBook);
     }
@@ -52,7 +65,13 @@ public class BookController : ControllerBase
     public async Task<IActionResult> DeleteBook(int bookId)
     {
         var book = await _bookService.GetBookByIdAsync(bookId);
-        if(book == null) return NotFound($"Book with ID : {bookId} not found!");
+        var _response = new ResponseDto();
+        if(book == null)
+        {
+            _response.Success = false;
+            _response.Message = "Book not found";
+            return NotFound(_response);
+        }
         await _bookService.DeleteBookAsync(bookId);
         return Ok($"Book with ID : {bookId} Deleted");
     }
@@ -60,8 +79,14 @@ public class BookController : ControllerBase
     [HttpGet("by-author/{authorId}")]
     public async Task<IActionResult> GetBooksByAuthor(int authorId)
     {
-        var authorBooks = _bookService.GetBooksByAuthorAsync(authorId);
-        if(authorBooks == null) return NotFound();
+        var authorBooks = await _bookService.GetBooksByAuthorAsync(authorId);
+        var _response = new ResponseDto();
+        if(authorBooks == null)
+        {
+            _response.Success = false;
+            _response.Message = "Author books not found";
+            return NotFound(_response);
+        }
         return Ok(authorBooks);
         
     }
